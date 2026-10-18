@@ -1,0 +1,13 @@
+{
+  "name": "threejs-playbook",
+  "version": "1.0.0",
+  "description": "A hands-on, interactive playbook for working with 3D objects in three.js.",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "test": "node --test tests/"
+  },
+  "engines": { "node": ">=20" }
+}
