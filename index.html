@@ -1,73 +1,53 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>
-        Daddy
-    </title>
-    <style>
-        html, body {margin: 0}
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Three.js Playbook</title>
+  <meta name="description" content="A hands-on playbook for working with 3D objects in Three.js. Every chapter has a live scene, editable code and sliders.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
 </head>
 <body>
-    <script async src="https://ga.jspm.io/npm:es-module-shims@1.8.0/dist/es-module-shims.js"></script>
+  <a class="skip" href="#chapter">Skip to chapter</a>
 
-    <script type="importmap">
-        {
-            "imports": {
-                "three": "https://unpkg.com/three@0.146.0/build/three.module.js"
-            }
-        }
-    </script>
+  <header class="topbar">
+    <button class="menu-btn" id="menuBtn" aria-label="Open chapter list" aria-expanded="false" aria-controls="nav">
+      <span></span><span></span><span></span>
+    </button>
+    <a class="brand" href="#/coordinates" aria-label="The Three.js Playbook, first chapter">
+      <svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true">
+        <path d="M16 3 4 9.5v13L16 29l12-6.5v-13z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M4 9.5 16 16l12-6.5M16 16v13" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      </svg>
+      <span>The Three.js Playbook</span>
+    </a>
+    <span class="topbar-progress" id="progress" aria-live="polite"></span>
+  </header>
 
-    <script type="module">
-        import * as THREE from 'three';
-        import {OrbitControls} from 'https://unpkg.com/three@0.146.0/examples/jsm/controls/OrbitControls.js';
-        import {GLTFLoader} from 'https://unpkg.com/three@0.146.0/examples/jsm/loaders/GLTFLoader.js';
+  <div class="shell">
+    <nav class="nav" id="nav" aria-label="Chapters">
+      <p class="nav-label">Chapters</p>
+      <ol id="navList"></ol>
+      <p class="nav-foot">Built with <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> r160. No build step.</p>
+    </nav>
 
-        //scene renderer
-        const renderer = new THREE.WebGLRenderer({antialias: true});
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
+    <main class="main" id="chapter" tabindex="-1"></main>
+  </div>
 
-        //our scene
-        const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x000000)
-
-        //camera that looks at our object
-        const camera = new THREE.PerspectiveCamera(70, window.innerWidth/window.innerHeight, 0.1, 1000)
-        camera.position.set(5, 5, 2.5);
-
-        //nice ambient light
-        const ambientLight = new THREE.AmbientLight(0xffffff);
-        scene.add(ambientLight);
-
-        // controls for orbiting around the object
-        const controls = new OrbitControls(camera, renderer.domElement);
-        controls.addEventListener('change', () => {renderer.render(scene, camera)});
-        controls.target.set(0, 0, 0);
-        controls.update();
-
-        // load the GL Object
-        const loader = new GLTFLoader();
-        loader.load('models/car.glb', function(gltf){
-            const model = gltf.scene;
-            model.position.set(0, 0, 0);
-
-            scene.add(model);
-
-            //render the scene
-            renderer.render(scene, camera);
-        }, undefined, function(error){
-            console.error(error)
-        });
-
-        // update scene on resize
-        window.onesize = function() {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        };
-
-    </script>
-
+  <noscript><p class="noscript">This playbook runs live 3D scenes, so it needs JavaScript.</p></noscript>
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>
